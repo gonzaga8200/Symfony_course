@@ -1,0 +1,35 @@
+## YAML Template.
+Acme\DemoBundle\Entity\Recipe:
+  type: entity
+  tables: recipes
+  manyToOne:
+    author:
+       targetEntity: Author
+       joinColumn: 
+         name: author_id
+         referencedColumnName: id
+  manyToMany:
+      ingredient:
+        targetEntity: Ingredient
+        joinColumn:
+          recipe_id:
+            referencedColumnName: id
+          inverseJoinColumns:
+            ingredient_id:
+             referencedColumnName: id
+             
+  id: 
+    id:
+      type: integer
+      generator: {strategy : auto}
+  fields:
+      name:
+        type: string
+        length: 255
+      difficulty:
+        type: string
+        length: 40
+      description:
+        type: text
+        
+

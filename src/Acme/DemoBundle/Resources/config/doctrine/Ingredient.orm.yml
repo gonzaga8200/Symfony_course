@@ -1,0 +1,14 @@
+## YAML Template.
+Acme\DemoBundle\Entity\Ingredient:
+  type: entity
+  tables: ingredients
+  id: 
+    id:
+      type: integer
+      generator: {strategy : auto}
+  fields:
+      name:
+        type: string
+        length: 255
+        
+

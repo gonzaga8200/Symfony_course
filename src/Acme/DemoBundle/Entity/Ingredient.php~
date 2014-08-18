@@ -1,0 +1,9 @@
+<?php
+
+namespace Acme\DemoBundle\Entity;
+class Ingredient {
+    private  $id;
+    private  $name;
+}
+
+?>

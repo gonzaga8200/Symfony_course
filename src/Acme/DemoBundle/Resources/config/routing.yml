@@ -1,0 +1,41 @@
+_welcome:
+    pattern:  /
+    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+
+_demo_secured:
+    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
+    type:     annotation
+
+_demo:
+    resource: "@AcmeDemoBundle/Controller/DemoController.php"
+    type:     annotation
+    prefix:   /demo
+    
+recipe_name:
+    path:      /recipe/{name}
+    defaults:  { _controller: AcmeDemoBundle:Recipe:index }
+recipe_create:
+    path:      /recipe_create/{name}
+    defaults:  { _controller: AcmeDemoBundle:Recipe:create }
+recipe_create2:
+    path:      /recipe_create2/{name}
+    defaults:  { _controller: AcmeDemoBundle:Recipe:create2 }
+recipe_show:
+    path:      /recipe_show/{id}
+    defaults:  {_controller: AcmeDemoBundle:Recipe:show , page: 1 }
+    requirements:
+        id:  \d+
+recipe_show_name:
+    path:      /recipe_show/{name}
+    defaults:  {_controller: AcmeDemoBundle:Recipe:showName  }
+recipe_show_all:
+    path:      /recipe_show/
+    defaults: {_controller: AcmeDemoBundle:Recipe:showAll }
+recipe_edit:
+    path:      /recipe_edit/{name}/{new_name}
+    defaults: {_controller: AcmeDemoBundle:Recipe:edit }
+recipe_remove:
+    path:     /recipe_remove/{name}
+    defaults: {_controller: AcmeDemoBundle:Recipe:remove }
+    
+

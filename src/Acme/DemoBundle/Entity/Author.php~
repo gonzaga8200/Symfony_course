@@ -1,0 +1,12 @@
+<?php
+
+namespace Acme\DemoBundle\Entity;
+class Author {
+    
+    private  $id;
+    private  $name;
+    private  $surname;
+    
+}
+
+?>

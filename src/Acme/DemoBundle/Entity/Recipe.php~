@@ -1,0 +1,11 @@
+<?php
+
+namespace Acme\DemoBundle\Entity;
+class Recipe {
+    private  $id;
+    private  $name;
+    private  $difficulty;
+    private  $description;
+}
+
+?>

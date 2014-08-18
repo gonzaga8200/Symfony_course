@@ -10,7 +10,7 @@
         {
             "name": "Gonzalo Moreno Minguito",
             "email": "gonzaga8200@gmail.com"
-        },
+        }
     ],
     "require": {
         "php": ">=5.3.3",

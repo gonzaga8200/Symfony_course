@@ -4,10 +4,12 @@ Acme\DemoBundle\Entity\Recipe:
   tables: recipes
   manyToOne:
     author:
+       inversedBy: recipes
        targetEntity: Author
        joinColumn: 
          name: author_id
          referencedColumnName: id
+       cascade: ["persist"]
   manyToMany:
       ingredient:
         targetEntity: Ingredient
@@ -17,6 +19,7 @@ Acme\DemoBundle\Entity\Recipe:
           inverseJoinColumns:
             ingredient_id:
              referencedColumnName: id
+        cascade: ["persist"]
              
   id: 
     id:

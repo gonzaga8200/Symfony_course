@@ -37,5 +37,11 @@ recipe_edit:
 recipe_remove:
     path:     /recipe_remove/{name}
     defaults: {_controller: AcmeDemoBundle:Recipe:remove }
+recipe_showRecipesAuthor:
+    path:     /recipe_showRecipesAuthor/{id}
+    defaults: {_controller: AcmeDemoBundle:Recipe:showRecipesAuthor}
+recipe_showAuthors:
+    path:     /recipe_showAuthors/
+    defaults: {_controller: AcmeDemoBundle:Recipe:showAuthors}
     
 

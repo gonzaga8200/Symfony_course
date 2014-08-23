@@ -1,11 +1,14 @@
 <?php
 
 namespace Acme\DemoBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 class Author {
     
     private  $id;
     private  $name;
     private  $surname;
+    
+    protected $recipes;
     
 
     /**
@@ -18,7 +21,11 @@ class Author {
         $this->name = $name;
         $this->surname = $surname;
         
-        
+        $this->recipes = new ArrayCollection;
+                
+    }
+    public function getRecipes(){
+        return $this->recipes;
     }
     public function getId()
     {

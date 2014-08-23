@@ -2,6 +2,10 @@
 Acme\DemoBundle\Entity\Author:
   type: entity
   tables: authors
+  oneToMany:
+    recipes:
+       targetEntity: Recipe
+       mappedBy: author
   id: 
     id:
       type: integer

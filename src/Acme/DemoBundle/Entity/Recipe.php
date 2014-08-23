@@ -1,6 +1,7 @@
 <?php
 
 namespace Acme\DemoBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Recipe {
 
@@ -16,7 +17,7 @@ class Recipe {
      *
      * @return integer 
      */
-    /*public function __construct(Author $author,$name,$description,$difficulty) {
+    public function __construct(Author $author,$name,$description,$difficulty) {
         $this->author = $author;
         $this->name = $name;
         $this->description = $description;
@@ -24,7 +25,7 @@ class Recipe {
         $this->ingredient = new ArrayCollection();
         
         
-    }*/
+    }
     public function add (Ingredient $ingredient){
         $this->ingredient[] = $ingredient;
     }

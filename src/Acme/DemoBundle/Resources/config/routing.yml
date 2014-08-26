@@ -18,7 +18,7 @@ recipe_create:
     path:      /recipe_create/{name}
     defaults:  { _controller: AcmeDemoBundle:Recipe:create }
 recipe_create2:
-    path:      /recipe_create2/{name}
+    path:      /recipe_create2/{name}/{surname}/{recipe_name}/{description}/{difficulty}/{ingredient_r}
     defaults:  { _controller: AcmeDemoBundle:Recipe:create2 }
 recipe_show:
     path:      /recipe_show/{id}
@@ -43,5 +43,8 @@ recipe_showRecipesAuthor:
 recipe_showAuthors:
     path:     /recipe_showAuthors/
     defaults: {_controller: AcmeDemoBundle:Recipe:showAuthors}
+recipe_index:
+    path: //
+    defaults: {controller: AcmeDemoBundle:Recipe:index}
     
 

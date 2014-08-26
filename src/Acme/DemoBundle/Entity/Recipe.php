@@ -32,6 +32,10 @@ class Recipe {
     public function getId() {
         return $this->id;
     }
+    
+    public function getAuthor (){
+        return $this->author->getName();
+    }
 
     /**
      * Set name

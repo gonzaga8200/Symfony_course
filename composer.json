@@ -1,5 +1,5 @@
 {
-    "name": "symfony/framework-standard-edition-gonzaga8200",
+    "name": "Symfony_course",
     "license": "MIT",
     "type": "project",
     "description": "Curso de Symfony",
@@ -54,5 +54,10 @@
         "branch-alias": {
             "dev-master": "2.4-dev"
         }
+    },
+    "require": {
+        "doctrine/doctrine-fixtures-bundle": "2.2.*"
     }
+    
+    
 }

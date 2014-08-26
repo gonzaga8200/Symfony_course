@@ -9,11 +9,15 @@ use Acme\DemoBundle\Entity\Author;
 use Acme\DemoBundle\Entity\Ingredient;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class RecipeController extends Controller {
-
+    
+    /**
+     * @Template("AcmeDemoBundle:Recipe:recipe.html.twig")
+     */
     public function indexAction($name) {
-        return new Response('<html><body>Hello ' . $name . '!</body></html>');
+        return array('name' => $name);
     }
 
     public function createAction($name) {
@@ -29,22 +33,25 @@ class RecipeController extends Controller {
         return new Response('Receta creada con el siguiente ID' . $recipe->getId());
     }
 
-    public function create2Action() {
+    /**
+     * @Template("AcmeDemoBundle:Recipe:create.html.twig")
+     */
+    public function create2Action($name,$surname,$recipe_name,$description,$difficulty,$ingredient_r) {
         //$em = $this->getDoctrine()->getEntityManager();
-        $author = new Author('Ferra', 'Adria');
+        $author = new Author($name, $surname);
         //$em->persist($author);
 
-        $ingredient = new Ingredient('pollo');
+        $ingredient = new Ingredient($ingredient_r);
         //$em->persist($ingredient);
 
-        $recipe = new Recipe($author, 'pollo-al-chilindron', 'cojonuda receta', 'facil');
+        $recipe = new Recipe($author, $recipe_name,$description,$difficulty);
         $recipe->add($ingredient);
 
         //$em->persist($recipe);
 
         $this->persistAndFlush($recipe);
 
-        return $this->redirect($this->generateUrl('recipe_show', array('id' => $recipe->getId())));
+        return $this->render("AcmeDemoBundle:Recipe:create.html.twig",array('recipe'=>$recipe,'author'=>$author));
     }
 
     private function persistAndFlush(Recipe $recipe) {
@@ -52,25 +59,38 @@ class RecipeController extends Controller {
         $em->persist($recipe);
         $em->flush();
     }
-
+    
+    /**
+     * @Template()
+     */
     public function showAction($id) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->find($id);
-        return new Response($recipe->getDescription());
+        //return new Response($recipe->getDescription());
+        return $this->render("AcmeDemoBundle:Recipe:show.html.twig",array('recipe'=>$recipe));
+        
+        //return array('description' => $recipe->getDescription());
     }
-
+    
+    /**
+     * @Template("AcmeDemoBundle:Recipe:show.html.twig")
+     */
     public function showNameAction($name) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->findOneByName($name);
-        return new Response($recipe->getDescription());
+        return $this->render("AcmeDemoBundle:Recipe:show.html.twig",array('recipe'=>$recipe));
     }
 
+    
+    /**
+     * @Template("AcmeDemoBundle:Recipe:show_all.html.twig")
+     */
     public function showAllAction() {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->findAll();
         echo "<pre>";
         echo "</pre>";
-        return new Response("test");
+        return $this->render("AcmeDemoBundle:Recipe:show_all.html.twig",array('recipe'=>$recipe));
     }
 
     public function showRecipesAuthorAction($id) {

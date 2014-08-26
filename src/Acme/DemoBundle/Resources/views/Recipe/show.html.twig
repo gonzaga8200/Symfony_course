@@ -1,0 +1,18 @@
+{% extends '::beauty.html.twig' %}
+{% block title "Esta es la descripción " ~ recipe.description|upper %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/beauty.css') }}" />
+{% endblock %}
+
+
+{% block headline1 %}EL AUTOR DE LA RECETA ES {{recipe.author}}{% endblock %}
+
+{% block headline2 %}ESTA RECETA ES DE NIVEL {{recipe.difficulty}}{% endblock %}
+
+{% block content_headline2 %}
+<p>{{recipe.description}}</p>
+{% endblock %}
+
+
+    
+{% set code = code(_self) %}

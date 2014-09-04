@@ -4,12 +4,17 @@
 
 namespace Acme\DemoBundle\Controller;
 
-use Acme\DemoBundle\Entity\Recipe;
-use Acme\DemoBundle\Entity\Author;
-use Acme\DemoBundle\Entity\Ingredient;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Acme\DemoBundle\Entity\Recipe;
+
+use Acme\DemoBundle\Entity\Author;
+
+use Acme\DemoBundle\Form\RecipeType;
 
 class RecipeController extends Controller {
     
@@ -127,6 +132,28 @@ class RecipeController extends Controller {
         $em->remove($recipe);
         $em->flush();
         return new Response("You have deleted " . $name);
+    }
+    
+    /**
+     * @Template("AcmeDemoBundle:Recipe:create2.html.twig")
+     */
+    public function createByFormAction(Request $request)
+    {
+        $recipe = new Recipe();
+        $form = $this->createForm(new RecipeType, $recipe);       
+        $form->handleRequest($request);
+        //$validator = $this->get('validator');
+        //$errors = $validator->validate($author);
+        
+        if ($form->isValid()){
+            echo "VALIDO";
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($recipe);
+            $em->flush();
+            return $this->render("AcmeDemoBundle:Recipe:success.html.twig",array(''));
+            //return $this->redirect($this->generateUrl('task_success'));
+        }
+        return array('form'=>$form->createView());  
     }
 
 }

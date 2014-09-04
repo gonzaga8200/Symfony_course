@@ -1,0 +1,6 @@
+Acme\DemoBundle\Entity\Author:
+  properties:
+    name:
+      - NotBlank: ~
+    surname:
+      - NotBlank: ~

@@ -2,6 +2,7 @@
 
 namespace Acme\DemoBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+
 class Author {
     
     private  $id;
@@ -17,13 +18,7 @@ class Author {
      * @return integer 
      */
     
-    public function __construct($name,$surname) {
-        $this->name = $name;
-        $this->surname = $surname;
-        
-        $this->recipes = new ArrayCollection;
-                
-    }
+    
     public function getRecipes(){
         return $this->recipes;
     }
@@ -76,5 +71,28 @@ class Author {
     public function getSurname()
     {
         return $this->surname;
+    }
+
+    /**
+     * Add recipes
+     *
+     * @param \Acme\DemoBundle\Entity\Recipe $recipes
+     * @return Author
+     */
+    public function addRecipe(\Acme\DemoBundle\Entity\Recipe $recipes)
+    {
+        $this->recipes[] = $recipes;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipes
+     *
+     * @param \Acme\DemoBundle\Entity\Recipe $recipes
+     */
+    public function removeRecipe(\Acme\DemoBundle\Entity\Recipe $recipes)
+    {
+        $this->recipes->removeElement($recipes);
     }
 }

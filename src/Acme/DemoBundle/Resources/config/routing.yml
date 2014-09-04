@@ -46,5 +46,16 @@ recipe_showAuthors:
 recipe_index:
     path: //
     defaults: {controller: AcmeDemoBundle:Recipe:index}
+recipe_createByForm:
+    path:     /recipe_createForm/
+    defaults: {_controller: AcmeDemoBundle:Recipe:createByForm}
+
     
 
+
+create:
+    pattern:     /authors/create
+    defaults: { _controller: AcmeDemoBundle:Author:create }
+create2:
+    pattern:     /authors/create2
+    defaults: { _controller: AcmeDemoBundle:Author:create2 }

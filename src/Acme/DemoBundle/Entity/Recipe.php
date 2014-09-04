@@ -17,7 +17,7 @@ class Recipe {
      *
      * @return integer 
      */
-    public function __construct(Author $author,$name,$description,$difficulty) {
+    /*public function __construct(Author $author,$name,$description,$difficulty) {
         $this->author = $author;
         $this->name = $name;
         $this->description = $description;
@@ -25,7 +25,7 @@ class Recipe {
         $this->ingredient = new ArrayCollection();
         
         
-    }
+    }*/
     public function add (Ingredient $ingredient){
         $this->ingredient[] = $ingredient;
     }
@@ -34,7 +34,12 @@ class Recipe {
     }
     
     public function getAuthor (){
-        return $this->author->getName();
+        return $this->author;
+    }
+    
+    public function setAuthor ($author){
+        $this->author = $author;
+        return $this;
     }
 
     /**

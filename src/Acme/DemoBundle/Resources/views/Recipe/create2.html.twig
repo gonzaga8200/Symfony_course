@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AcmeDemoBundle:Recipe:create{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Recipe:create page</h1>
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    <ul>
+        <li>
+                {{ form_label(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
+        </li>
+        <li>
+                {{ form_label(form.difficulty) }}
+                {{ form_errors(form.difficulty) }}
+                {{ form_widget(form.difficulty) }}
+        </li>
+        <li>
+                {{ form_label(form.description) }}
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description) }}
+        </li>
+    </ul>
+    <h2>AUTHOR DATA</h2>
+    <ul>
+        <li>
+                {{ form_label(form.author.name) }}
+                {{ form_errors(form.author.name) }}
+                {{ form_widget(form.author.name) }}
+        </li>
+        <li>
+                {{ form_label(form.author.surname) }}
+                {{ form_errors(form.author.surname) }}
+                {{ form_widget(form.author.surname) }}
+        </li>
+        <li>
+            {{ form_widget(form.save) }} 
+        </li>
+    </ul>
+{{ form_end(form) }}
+{% endblock %}

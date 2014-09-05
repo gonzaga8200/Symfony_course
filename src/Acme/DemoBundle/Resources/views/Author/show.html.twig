@@ -1,0 +1,12 @@
+<h1>SHOW AUTHOR</h1>
+<p>Nombre: {{ author.name }}</p>
+<p>Apellido: {{ author.surname }}</p>
+<p><a href="{{ path('edit_author', {'id':author.id}) }}">Edit</a></p>
+<p><a href="{{ path('delete_author', {'id':author.id}) }}">Delete</a></p>
+
+<h2>Recipes</h2>
+<ul>
+{% for recipe in author.recipes  %}
+    <li>asdf</li>
+{% endfor %}
+</ul>

@@ -5,27 +5,138 @@
 namespace Acme\DemoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Acme\DemoBundle\Entity\Recipe;
-
 use Acme\DemoBundle\Entity\Author;
-
 use Acme\DemoBundle\Form\RecipeType;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 class RecipeController extends Controller {
-    
+
     /**
-     * @Template("AcmeDemoBundle:Recipe:recipe.html.twig")
+     * @Template()
      */
-    public function indexAction($name) {
-        return array('name' => $name);
+    public function indexAction() {
+        $recipes = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe')->findAll();
+        return array(
+            'recipes' => $recipes,
+        );
+    }
+    /****** CREATE **************************/
+    /**
+     * @Template
+     */
+    public function newAction() {
+        return array(
+            'form' => $this->createCreateForm(new Recipe())->createView()
+        );
     }
 
-    public function createAction($name) {
+    private function createCreateForm($entity) {
+        return $this->createForm(new RecipeType(), $entity, array(
+                    'action' => $this->generateUrl('create_recipe'),
+                    'method' => 'POST'
+                ));
+    }
+    public function createAction(Request $request) {
+        $recipe = new  Recipe();
+        $form = $this->createCreateForm($recipe);
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($recipe);
+            $em->flush();
+            return $this->redirect($this->generateUrl('recipe_name'));
+        }
+        throw new Exception();
+    }
+    /******** END CREATE **********************/
+    /******** EDIT ****************************/
+    /**
+     * @param $id
+     * @return array
+     * @Template()
+     * @throws \Doctrine\ORM\EntityNotFoundException@
+     */
+    public function editAction($id) {
+        $recipe = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe')->find($id);
+        if(!$recipe)
+            throw new EntityNotFoundException();
+        $edit_form = $this->createEditForm($recipe);
+        $delete_form = $this->createDeleteForm($recipe->getId());
+        return array(
+            'edit_form' => $edit_form->createView(),
+            'delete_form' => $delete_form->createView()
+        );
+    }
+    private function createEditForm($entity) {
+        return $this->createForm(new RecipeType(), $entity, array(
+            'action' => $this->generateUrl('update_recipe', array('id'=>$entity->getId())),
+            'method' => 'PUT'
+        ));
+    }
+    
+    public function updateAction(Request $request, $id) {
+        $recipe = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe')->find($id);
+        $form = $this->createEditForm($recipe);
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($recipe);
+            $em->flush();
+            return $this->redirect($this->generateUrl('recipe_name'));
+        }
+        $edit_form = $this->createEditForm($recipe);
+        $edit_form->handleRequest($request);
+        //$delete_form = $this->createDeleteForm($author->getId());
+        return $this->render('AcmeDemoBundle:Recipe:edit', array(
+            'edit_form' => $edit_form->createView(),
+            //'delete_form' => $delete_form->createView()
+        ));
+    }
+    
+    /************ END EDIT **********************************/
+    /************ DELETE ************************************/
+    private function createDeleteForm($id) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_recipe', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
+    }
+    public function deleteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $recipe = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe')->find($id);
+        if($recipe) {
+            $em->remove($recipe);
+            $em->flush();
+            return $this->redirect($this->generateUrl('recipe_name'));
+        }
+        throw new EntityNotFoundException();
+    }
+    // ******************* END DELETE ****************************/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // ********** OLD METHODS ******************** //
+
+    /*public function createAction($name) {
         $recipe = new Recipe();
         $recipe->setName($name);
         $recipe->setDifficulty('Dificil');
@@ -41,7 +152,7 @@ class RecipeController extends Controller {
     /**
      * @Template("AcmeDemoBundle:Recipe:create.html.twig")
      */
-    public function create2Action($name,$surname,$recipe_name,$description,$difficulty,$ingredient_r) {
+    /*public function create2Action($name, $surname, $recipe_name, $description, $difficulty, $ingredient_r) {
         //$em = $this->getDoctrine()->getEntityManager();
         $author = new Author($name, $surname);
         //$em->persist($author);
@@ -49,14 +160,14 @@ class RecipeController extends Controller {
         $ingredient = new Ingredient($ingredient_r);
         //$em->persist($ingredient);
 
-        $recipe = new Recipe($author, $recipe_name,$description,$difficulty);
+        $recipe = new Recipe($author, $recipe_name, $description, $difficulty);
         $recipe->add($ingredient);
 
         //$em->persist($recipe);
 
         $this->persistAndFlush($recipe);
 
-        return $this->render("AcmeDemoBundle:Recipe:create.html.twig",array('recipe'=>$recipe,'author'=>$author));
+        return $this->render("AcmeDemoBundle:Recipe:create.html.twig", array('recipe' => $recipe, 'author' => $author));
     }
 
     private function persistAndFlush(Recipe $recipe) {
@@ -64,38 +175,37 @@ class RecipeController extends Controller {
         $em->persist($recipe);
         $em->flush();
     }
-    
+
     /**
      * @Template()
      */
-    public function showAction($id) {
+    /*public function showAction($id) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->find($id);
         //return new Response($recipe->getDescription());
-        return $this->render("AcmeDemoBundle:Recipe:show.html.twig",array('recipe'=>$recipe));
-        
+        return $this->render("AcmeDemoBundle:Recipe:show.html.twig", array('recipe' => $recipe));
+
         //return array('description' => $recipe->getDescription());
     }
-    
+
     /**
      * @Template("AcmeDemoBundle:Recipe:show.html.twig")
      */
-    public function showNameAction($name) {
+    /*public function showNameAction($name) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->findOneByName($name);
-        return $this->render("AcmeDemoBundle:Recipe:show.html.twig",array('recipe'=>$recipe));
+        return $this->render("AcmeDemoBundle:Recipe:show.html.twig", array('recipe' => $recipe));
     }
 
-    
     /**
      * @Template("AcmeDemoBundle:Recipe:show_all.html.twig")
      */
-    public function showAllAction() {
+    /*public function showAllAction() {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->findAll();
         echo "<pre>";
         echo "</pre>";
-        return $this->render("AcmeDemoBundle:Recipe:show_all.html.twig",array('recipe'=>$recipe));
+        return $this->render("AcmeDemoBundle:Recipe:show_all.html.twig", array('recipe' => $recipe));
     }
 
     public function showRecipesAuthorAction($id) {
@@ -106,10 +216,9 @@ class RecipeController extends Controller {
         print_r($recipes->count());
         echo "</pre>";
         return new Response($author->getName());
-        
     }
-    
-    public function showAuthorsAction (){
+
+    public function showAuthorsAction() {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT a FROM AcmeDemoBundle:Author a JOIN a.recipes r ORDER BY a.surname DESC ');
         $hardcore_authors = $query->getArrayResult();
@@ -117,7 +226,7 @@ class RecipeController extends Controller {
         return new Response("");
     }
 
-    public function editAction($name, $new_name) {
+    public function edit2Action($name, $new_name) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:Recipe');
         $recipe = $repository->findOneByName($name);
         $recipe->setName('Bacalao con Tomate');
@@ -132,29 +241,29 @@ class RecipeController extends Controller {
         $em->remove($recipe);
         $em->flush();
         return new Response("You have deleted " . $name);
-    }
-    
+    }*/
     /**
      * @Template("AcmeDemoBundle:Recipe:create2.html.twig")
      */
-    public function createByFormAction(Request $request)
-    {
+    /*public function createByFormAction(Request $request) {
         $recipe = new Recipe();
-        $form = $this->createForm(new RecipeType, $recipe);       
+        $form = $this->createForm(new RecipeType, $recipe);
         $form->handleRequest($request);
         //$validator = $this->get('validator');
         //$errors = $validator->validate($author);
-        
-        if ($form->isValid()){
+
+        if ($form->isValid()) {
             echo "VALIDO";
             $em = $this->getDoctrine()->getManager();
             $em->persist($recipe);
             $em->flush();
-            return $this->render("AcmeDemoBundle:Recipe:success.html.twig",array(''));
+            return $this->render("AcmeDemoBundle:Recipe:success.html.twig", array(''));
             //return $this->redirect($this->generateUrl('task_success'));
         }
-        return array('form'=>$form->createView());  
-    }
+        return array('form' => $form->createView());
+    }*/
+
+    
 
 }
 

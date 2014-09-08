@@ -1,0 +1,22 @@
+
+<h1>Recipe List</h1>
+<ul>
+    <table>
+        <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Dificultad</td>
+            <td>Descripcion</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <td><a href="">{{ recipe.name }}</a></td>
+                <td><a href="">{{ recipe.difficulty }}</a></td>
+                <td><a href="">{{ recipe.description }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</ul>

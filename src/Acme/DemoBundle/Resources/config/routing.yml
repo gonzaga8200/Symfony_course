@@ -59,3 +59,49 @@ create:
 create2:
     pattern:     /authors/create2
     defaults: { _controller: AcmeDemoBundle:Author:create2 }
+
+#Oscar: ruta para mostrar una lista con todos los author
+index_author:
+    path: /author
+    defaults: { _controller: AcmeDemoBundle:Author:index }
+    methods: [GET]
+
+#Oscar: ruta para crear el author
+create_author:
+    path: /author
+    defaults: { _controller: AcmeDemoBundle:Author:create }
+    methods: [POST]
+
+#Oscar: ruta para crear un author
+new_author:
+    path: /author/new
+    defaults: { _controller: AcmeDemoBundle:Author:new }
+    methods: [GET]
+
+#Oscar: ruta para mostrar un author y sus recipes
+show_author:
+    path: /author/{id}
+    defaults: { _controller: AcmeDemoBundle:Author:show }
+    methods: [GET]
+
+#Oscar: ruta para editar un author
+edit_author:
+    path: /author/{id}/edit
+    defaults: { _controller: AcmeDemoBundle:Author:edit }
+    methods: [GET]
+
+#Oscar: ruta para actuarlizar un author
+update_author:
+    path: /author/{id}/edit
+    defaults: { _controller: AcmeDemoBundle:Author:update }
+    methods: [PUT]
+
+#Oscar: ruta para eliminar una author
+delete_author:
+    path: /author/{id}/delete
+    defaults: { _controller: AcmeDemoBundle:Author:delete }
+    methods: [GET, DELETE]
+
+
+
+

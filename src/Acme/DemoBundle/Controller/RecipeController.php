@@ -46,9 +46,7 @@ class RecipeController extends Controller {
         $form = $this->createCreateForm($recipe);
         $form->handleRequest($request);
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($recipe);
-            $em->flush();
+            $this->get("recipe.create")->create($recipe);
             return $this->redirect($this->generateUrl('recipe_name'));
         }
         throw new Exception();

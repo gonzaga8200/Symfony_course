@@ -9,3 +9,5 @@
 /vendor/
 /bin/
 /composer.phar
+
+src/Acme/DemoBundle/Resources/views/Recipe/create_aux.html.twig

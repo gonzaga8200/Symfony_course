@@ -8,6 +8,7 @@ class Author {
     private  $id;
     private  $name;
     private  $surname;
+    private  $email;
     
     protected $recipes;
     
@@ -26,6 +27,10 @@ class Author {
     {
         return $this->id;
     }
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * Set name
@@ -36,6 +41,18 @@ class Author {
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Author
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
 
         return $this;
     }

@@ -14,31 +14,34 @@ _demo:
 recipe_name:
     path:      /recipe/
     defaults:  { _controller: AcmeDemoBundle:Recipe:index }
+    methods: [GET]
     
 new_recipe:
     path:      /new_recipe/
     defaults:  { _controller: AcmeDemoBundle:Recipe:new }
+    methods: [GET]
 create_recipe:
     path:      /create_recipe/
     defaults:  { _controller: AcmeDemoBundle:Recipe:create }
+    methods: [POST]
 edit_recipe:
     path:      /edit_recipe/{id}
     defaults:  { _controller: AcmeDemoBundle:Recipe:edit }
+    methods: [GET]
 update_recipe:
     path:      /update_recipe/{id}
     defaults:  {_controller: AcmeDemoBundle:Recipe:update }
+    methods: [PUT]
 delete_recipe:
     path:      /delete_recipe/{id}
     defaults:  {_controller: AcmeDemoBundle:Recipe:delete }
+    methods: [GET, DELETE]
+last_recipes:
+    path:      /last_recipes/
+    defaults:  {_controller: AcmeDemoBundle:Recipe:lastRecipes }
+    methods: [GET]
    
 
-
-create:
-    pattern:     /authors/create
-    defaults: { _controller: AcmeDemoBundle:Author:create }
-create2:
-    pattern:     /authors/create2
-    defaults: { _controller: AcmeDemoBundle:Author:create2 }
 
 #Oscar: ruta para mostrar una lista con todos los author
 index_author:
@@ -81,7 +84,3 @@ delete_author:
     path: /author/{id}/delete
     defaults: { _controller: AcmeDemoBundle:Author:delete }
     methods: [GET, DELETE]
-
-
-
-

@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Acme\DemoBundle\Entity\Difficulties;
 use Acme\DemoBundle\Entity\Author;
+use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RecipeType extends AbstractType {
 
@@ -20,6 +23,8 @@ class RecipeType extends AbstractType {
                 ->add('difficulty', new DifficultyType)
                 ->add('description', 'text')
                 ->add('author', new AuthorType)
+                ->add('date', 'datetime')
+                //->add('author', 'choice', array('choices' => $authors))
                 ->add('save', 'submit')
         ;
     }
@@ -29,7 +34,8 @@ class RecipeType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Acme\DemoBundle\Entity\Recipe'
+            'data_class' => 'Acme\DemoBundle\Entity\Recipe',
+            'cascade_validation' => true,
         ));
     }
 

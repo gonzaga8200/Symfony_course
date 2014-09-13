@@ -116,7 +116,14 @@ class RecipeController extends Controller {
         throw new EntityNotFoundException();
     }
     // ******************* END DELETE ****************************/
-    
+    //*********** LAST RECIPES ************************************ //
+    /**
+     * @Template()
+     */
+    public function lastRecipesAction (){
+        $date = new \DateTime ('-10 Days');
+        return array('recipes'=>$this->get('recipes.last')->findForm($date));
+    }
     
     
     

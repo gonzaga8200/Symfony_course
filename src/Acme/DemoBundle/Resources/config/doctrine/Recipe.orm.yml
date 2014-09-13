@@ -2,6 +2,7 @@
 Acme\DemoBundle\Entity\Recipe:
   type: entity
   tables: recipes
+  repositoryClass: Acme\DemoBundle\Entity\RecipeRepository
   manyToOne:
     author:
        inversedBy: recipes
@@ -34,5 +35,7 @@ Acme\DemoBundle\Entity\Recipe:
         length: 40
       description:
         type: text
+      date:
+        type: date
         
 

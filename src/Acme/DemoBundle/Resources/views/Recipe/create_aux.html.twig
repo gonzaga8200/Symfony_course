@@ -1,0 +1,26 @@
+{% extends '::beauty.html.twig' %}
+{% block title%}
+    Creado con Éxito {{recipe.name}}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/beauty.css') }}" />
+{% endblock %}
+
+
+{% block headline1 %}ESTOS SON LOS DATOS DE LA RECETA CREADA{% endblock %}
+
+
+{% block content_headline2 %}
+<ul>
+    <li>{{recipe.name}}</li>
+    <li>{{author.name}}</li>
+    <li>{{author.surname}}</li>
+    <li>{{recipe.description}}</li>
+    <li>{{recipe.difficulty}}</li>
+    
+</ul>
+{% endblock %}
+
+
+    
+{% set code = code(_self) %}

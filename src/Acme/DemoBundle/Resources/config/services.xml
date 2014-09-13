@@ -17,5 +17,8 @@
         <service id="recipe.create" class="Acme\DemoBundle\Model\CreateRecipe">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+        <service id="recipes.last" class="Acme\DemoBundle\Model\LastRecipes">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
     </services>
 </container>

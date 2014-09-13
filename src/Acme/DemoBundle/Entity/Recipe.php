@@ -11,6 +11,7 @@ class Recipe {
     private $name;
     private $difficulty;
     private $description;
+    private $date;
 
     /**
      * Get id
@@ -105,4 +106,67 @@ class Recipe {
         return $this->description;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredient = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ingredient
+     *
+     * @param \Acme\DemoBundle\Entity\Ingredient $ingredient
+     * @return Recipe
+     */
+    public function addIngredient(\Acme\DemoBundle\Entity\Ingredient $ingredient)
+    {
+        $this->ingredient[] = $ingredient;
+
+        return $this;
+    }
+
+    /**
+     * Remove ingredient
+     *
+     * @param \Acme\DemoBundle\Entity\Ingredient $ingredient
+     */
+    public function removeIngredient(\Acme\DemoBundle\Entity\Ingredient $ingredient)
+    {
+        $this->ingredient->removeElement($ingredient);
+    }
+
+    /**
+     * Get ingredient
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredient()
+    {
+        return $this->ingredient;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Recipe
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 }

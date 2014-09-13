@@ -1,0 +1,10 @@
+services:
+  recipe.create:
+    class: Acme\DemoBundle\Model\CreateRecipe
+    arguments: ["@doctrine.orm.entity_manager"]
+  twig.extension.acme.demo:
+    class: Acme\DemoBundle\Twig\Extension\DemoExtension
+    public: false
+    arguments: ["@doctrine.orm.entity_manager"]
+  
+ 

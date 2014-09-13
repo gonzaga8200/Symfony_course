@@ -1,0 +1,20 @@
+{% extends '::beauty.html.twig' %}
+{% block title "Ultimas 10 recetas " %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/beauty.css') }}" />
+{% endblock %}
+
+
+{% block headline1 %}ULTIMAS RECETAS{% endblock %}
+
+{% block content_headline2 %}
+<ul>
+    {%for receta in recipes %}
+        <li>{{receta.name}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+    
+{% set code = code(_self) %}

@@ -1,4 +1,4 @@
-Acme\UserBundle\Entity\User:
+Acme\UserBundle\Entity\Role:
     type: entity
     table: null
     id:
@@ -8,30 +8,21 @@ Acme\UserBundle\Entity\User:
             generator:
                 strategy: AUTO
     manyToMany:
-      role:
-        targetEntity: Role
+      user:
+        targetEntity: User
         joinColumn:
-          user_id:
+          role_id:
             referencedColumnName: id
           inverseJoinColumns:
-            role_id:
+            user_id:
              referencedColumnName: id
         cascade: ["persist"]
     fields:
-        email:
+        name:
             type: string
             length: '255'
             unique: true
-        username:
+        role:
             type: string
             length: '255'
-        password:
-            type: string
-            length: '64'
-        salt:
-            type: string
-            length: '64'
-        isActive:
-            type: boolean
-    
     lifecycleCallbacks: {  }

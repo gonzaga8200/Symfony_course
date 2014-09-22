@@ -1,0 +1,11 @@
+acme_user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AcmeUserBundle:Default:index }
+new_user:
+    path: /user/registration
+    defaults: {_controller:AcmeUserBundle:Default:new }
+    methods: [GET]
+create_user:
+    path: /create_user
+    defaults: {_controller:AcmeUserBundle:Default:create }
+

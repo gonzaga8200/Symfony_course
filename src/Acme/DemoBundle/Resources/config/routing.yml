@@ -2,9 +2,16 @@ _welcome:
     pattern:  /
     defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
-_demo_secured:
-    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
-    type:     annotation
+#_demo_secured:
+#    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
+#    type:     annotation
+login:
+  path: /login
+  defaults: {_controller:AcmeDemoBundle:Secured:login }
+login_check:
+  path: /login_check 
+logout:
+    pattern: /logout 
 
 _demo:
     resource: "@AcmeDemoBundle/Controller/DemoController.php"
@@ -17,7 +24,7 @@ recipe_name:
     methods: [GET]
     
 new_recipe:
-    path:      /new_recipe/
+    path:      /admin/new_recipe/
     defaults:  { _controller: AcmeDemoBundle:Recipe:new }
     methods: [GET]
 create_recipe:
@@ -40,7 +47,11 @@ last_recipes:
     path:      /last_recipes/
     defaults:  {_controller: AcmeDemoBundle:Recipe:lastRecipes }
     methods: [GET]
-   
+#login:
+#  path: /login
+#  defaults: {_controller: AcmeDemoBundle:Security:login}
+#login_check:
+#  path: /login_check
 
 
 #Oscar: ruta para mostrar una lista con todos los author

@@ -20,5 +20,9 @@
         <service id="recipes.last" class="Acme\DemoBundle\Model\LastRecipes">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+        <service id="kernel.listener.recipes_listener" class="Acme\DemoBundle\EventListener\RecipesListener">
+            <tag name="kernel.event_listener" event="recipes.creates" method="onRecipeCreate" />
+            
+        </service>
     </services>
 </container>

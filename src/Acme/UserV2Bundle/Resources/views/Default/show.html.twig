@@ -1,0 +1,18 @@
+<h1>SHOW USERS</h1>
+
+<table>
+<tr>
+    <td><b>USER</b></td>
+    <td><b>ROLE</b></td>
+    <td><b>ACTIVATED</b></td>
+    <td><b>ADD ADMIN ROLE</b></td>
+    
+</tr>
+{% for user in users  %}
+<tr>
+    <td>{{user.username}}</td><td>{% for role in user.roles  %}{{role.role}},{% endfor %}</td>
+    <td><a href="{{ path('set_user', {'id': user.id}) }}">DISABLED</a></td>
+    <td><a href="{{ path('add_role', {'id': user.id}) }}">ROL ADMIN</a></td>
+</tr>
+{% endfor %}
+</table>

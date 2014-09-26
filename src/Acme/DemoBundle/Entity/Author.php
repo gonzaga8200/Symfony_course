@@ -112,4 +112,12 @@ class Author {
     {
         $this->recipes->removeElement($recipes);
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

@@ -13,7 +13,18 @@ use Acme\UserV2Bundle\Entity\Role;
 use Acme\UserV2Bundle\Form\UserType;
 
 class DefaultController extends Controller {
+    /**
+     * @Route("/test/login_check", name="login_check")
+     */
+    public function securityCheckAction()
+    {
+        // The security layer will intercept this request
+    }
 
+    /**
+     * @Route("/access_secure/{name}", name="access_secure")
+     * @Template()
+     */
     public function indexAction($name) {
         return $this->render('AcmeUserV2Bundle:Default:index.html.twig', array('name' => $name));
     }

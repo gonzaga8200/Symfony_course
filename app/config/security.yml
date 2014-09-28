@@ -15,8 +15,10 @@ security:
                users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-        //users:
-          //entity: {class: AcmeUserV2Bundle:user, property:username}
+        users:
+          entity: {class: AcmeUserV2Bundle:user, property:username}
+    #encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
     
     firewalls:
         dev:
@@ -28,8 +30,8 @@ security:
             security: false
             
         secured_area:
-            #pattern:    ^/demo/secured/
-            pattern:    /.*
+            pattern:    ^/demo/secured/
+            #pattern:    /.*
             provider: users              
             form_login:
                 #check_path: _security_check
@@ -51,15 +53,34 @@ security:
             security: true
             anonymous: true
         user_secured_area:
-            pattern:   ^/user
+            pattern:   ^
             anonymous: ~
             provider: users
             form_login:
-                login_path: /user/login
-                check_path: /user/login_check
+                login_path: /login
+                check_path: /login_check
                 default_target_path: /home
+        test_secured_area:
+            pattern: ^
+            provider: users            
+            form_login:
+                #check_path: _security_check
+                check_path: login_check
+                login_path: login
+                remember_me: true
+            logout:
+                path: /logout
+                target: /
+            remember_me:
+                key: MiClaveSegura
+                lifetime: 1800
+                path: /.*
+                domain: ~
+            security: true
+            anonymous: true
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /user, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/access_secure, roles: ROLE_ADMIN }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

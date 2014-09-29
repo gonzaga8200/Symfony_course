@@ -22,6 +22,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class RecipeController extends Controller {
+    
+    /**
+     * @Template()
+     */
+    public function testTransAction() {
+        //$request->setLocale('fr_FR');
+        //$translated = $this->get('translator')->trans('Symfony is great');
+        return array ('count'=>0);
+    }
+    
+    public function testTransVarAction(Request $request, $name) {
+        $request->setLocale('fr_FR');
+        $translated = $this->get('translator')->trans('Hello %name%',array('%name%'=>$name));
+        return new Response($translated);
+    }
+    
+    public function testTransPluriAction() {
+        //$request->setLocale('fr_FR');
+        $translated = $this->get('translator')->transChoice('Symfony is great | Symfony %count% great',array('%count%'=>200));
+        return new Response($translated);
+    }
 
     /**
      * @Template()

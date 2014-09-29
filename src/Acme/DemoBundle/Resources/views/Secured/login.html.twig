@@ -1,24 +1,24 @@
 {% extends 'AcmeDemoBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1 class="title">Por favor inicia sesión</h1>
+    <h1 class="title">{% trans %}Please log in{% endtrans %}</h1>
 
     <p>
-        Choose between two default users: <em>user/userpass</em> <small>(ROLE_USER)</small> or <em>admin/adminpass</em> <small>(ROLE_ADMIN)</small>
+        {% trans %}Choose between two default users:{% endtrans %} 
     </p>
 
     {% if error %}
-        <div class="error">{{ error.message }}</div>
+        <div class="error">{{ error.message|trans }}</div>
     {% endif %}
 
     <form action="{{ path("login_check") }}" method="post" id="login">
         <div>
-            <label for="username">Username</label>
+            <label for="username">{% trans %}Username{% endtrans %}</label>
             <input type="text" id="username" name="_username" value="{{ last_username }}" />
         </div>
 
         <div>
-            <label for="password">Password</label>
+            <label for="password">{% trans %}Password{% endtrans %}</label>
             <input type="password" id="password" name="_password" />
         </div>
 
@@ -32,4 +32,3 @@
     </form>
 {% endblock %}
 
-{% set code = code(_self) %}

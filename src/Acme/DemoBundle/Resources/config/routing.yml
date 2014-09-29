@@ -6,8 +6,11 @@ _welcome:
 #    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
 #    type:     annotation
 login:
-  path: /login
-  defaults: {_controller:AcmeDemoBundle:Secured:login }
+  path: /{_locale}/login
+  defaults: {_controller:AcmeDemoBundle:Secured:login ,locale:en }
+  requirements: 
+      _locale : en|fr|es
+  
 login_check:
   path: /login_check 
 logout:
@@ -95,3 +98,17 @@ delete_author:
     path: /author/{id}/delete
     defaults: { _controller: AcmeDemoBundle:Author:delete }
     methods: [GET, DELETE]
+    
+test_trans:
+    path: /{_locale}/test_trans
+    defaults: { _controller: AcmeDemoBundle:Recipe:testTrans , _locale:en }
+    requirements: 
+      _locale : en|fr|de
+test_trans_var:
+    path: /test_trans/{name}
+    defaults: { _controller: AcmeDemoBundle:Recipe:testTransVar }
+test_trans_pluri:
+    path: /{_locale}/test_trans_pluri
+    defaults: { _controller: AcmeDemoBundle:Recipe:testTransPluri , _locale:en }
+    requirements: 
+      _locale : en|fr|de

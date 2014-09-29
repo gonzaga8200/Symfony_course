@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Symfony is great</source>
+                <target>J'aime Symfony</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Hello %name%</source>
+                <target>Bonjour %name% </target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Please log in</source>
+                <target>S&apos;il vous plâit connectez-vous</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Choose between two default users:</source>
+                <target>Choisissez entre deux utilisateurs par défaut </target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Username</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Bad credentials</source>
+                <target>Bad pouvoirs</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
